@@ -176,11 +176,207 @@
             </div>
             <button class="banner-btn">Apply Now</button>
         </div>
+        <div class="logo"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a472a">
+    <title>CCST Student Portal | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6b8e23;
+            --primary-light: #9acd32;
+            --primary-dark: #1a472a;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --bg: #f5f5dc;
+            --white: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a2a1a 0%, #1a472a 50%, #2d6a3d 100%);
+            padding: 20px;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            padding: 30px 40px 40px 40px; /* Adjusted top padding */
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo { text-align: center; margin-bottom: 30px; }
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .logo h1 { color: var(--primary-dark); font-size: 1.6rem; margin-bottom: 5px; }
+        .logo p { color: #666; font-size: 0.85rem; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; font-size: 0.9rem; }
+        .input-wrapper { position: relative; }
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        input {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus { outline: none; border-color: var(--primary-dark); }
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(26, 71, 42, 0.4); }
+        .forgot-link { text-align: right; margin-top: 8px; }
+        .forgot-link a { color: var(--primary); text-decoration: none; font-size: 0.85rem; }
+        .divider { display: flex; align-items: center; margin: 25px 0; color: #999; font-size: 0.85rem; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e0e0e0; }
+        .divider span { padding: 0 15px; }
+        .register-section { text-align: center; }
+        .register-section p { color: #666; margin-bottom: 12px; font-size: 0.9rem; }
+        .btn-register {
+            background: transparent;
+            border: 2px solid var(--primary-dark);
+            color: var(--primary-dark);
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-register:hover { background: var(--primary-dark); color: white; }
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+            text-align: center;
+            padding: 10px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+        }
+        .admission-banner {
+            background: linear-gradient(135deg, #1a472a, #6b8e23);
+            border-radius: 16px;
+            padding: 15px 20px; /* Slightly reduced padding */
+            margin-bottom: 15px; /* Spacing between banners */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .admission-banner:hover { transform: translateY(-2px); }
+        .banner-content { display: flex; align-items: center; gap: 15px; color: white; }
+        .banner-icon {
+            width: 40px; /* Slightly smaller icons to fit two banners */
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .banner-text h4 { font-size: 0.9rem; margin-bottom: 3px; }
+        .banner-text p { font-size: 0.7rem; opacity: 0.85; }
+        .banner-btn {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .banner-btn:hover { background: var(--primary-light); color: white; }
+
+        /* Specific style for the Register Button inside the green banner */
+        .register-banner-btn {
+            color: #27ae60 !important;
+        }
+        .register-banner-btn:hover {
+            background: #ffffff !important;
+            color: #2ecc71 !important;
+        }
+
+        @media (max-width: 480px) {
+            .login-container { padding: 25px 20px; border-radius: 20px; }
+            .logo h1 { font-size: 1.4rem; }
+            input { font-size: 16px; }
+            .admission-banner { flex-direction: column; text-align: center; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="admission-banner" onclick="window.location.href='admission.html'">
+            <div class="banner-content">
+                <div class="banner-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="banner-text">
+                    <h4>New Applicant?</h4>
+                    <p>Apply for 2025/2026 Academic Year</p>
+                </div>
+            </div>
+            <button class="banner-btn">Apply Now</button>
+        </div>
+
+        <div class="admission-banner" style="background: linear-gradient(135deg, #27ae60, #2ecc71); margin-bottom: 25px;">
+            <div class="banner-content">
+                <div class="banner-icon"><i class="fas fa-user-check"></i></div>
+                <div class="banner-text">
+                    <h4>Already Admitted?</h4>
+                    <p>Complete your student registration</p>
+                </div>
+            </div>
+            <button class="banner-btn register-banner-btn" onclick="window.location.href='register.html'">Register</button>
+        </div>
+
         <div class="logo">
             <div class="logo-icon"><i class="fas fa-university"></i></div>
-            <h1>CCST Portal</h1>
+            <h1>G-Hive Portal</h1>
             <p>Student Information System</p>
         </div>
+
         <form id="loginForm" onsubmit="handleLogin(event)">
             <div class="form-group">
                 <label>Student ID</label>
@@ -196,13 +392,15 @@
                     <input type="password" id="password" placeholder="Enter your password" required>
                 </div>
                 <div class="forgot-link">
-                    <a href="#" onclick="showForgotMessage()">Forgot Password?</a>
+                    <a href="#" onclick="alert('Please contact admin to reset password')">Forgot Password?</a>
                 </div>
             </div>
             <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</button>
             <div class="error-message" id="errorMessage"></div>
         </form>
+
         <div class="divider"><span>or</span></div>
+
         <div class="register-section">
             <p>Don't have an account?</p>
             <button class="btn-register" onclick="window.location.href='admission.html'">
