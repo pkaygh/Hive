@@ -3,50 +3,646 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration Form</title>
+    <meta name="theme-color" content="#1a472a">
+    <title>Track Application | CCST Admission</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6b8e23;
+            --primary-light: #9acd32;
+            --primary-dark: #1a472a;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+            --bg: #f5f5dc;
+            --white: #ffffff;
+            --text-dark: #2f4f2f;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            background-image: radial-gradient(circle, rgba(107, 142, 35, 0.08) 1px, transparent 1px);
+            background-size: 12px 12px;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+        }
+
+        .header-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
+
+        .header-btn:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* Container */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .search-section h2 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(107, 142, 35, 0.3);
+        }
+
+        .search-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Status Card */
+        .status-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: none;
+        }
+
+        .status-card.show {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-header h3 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .tracking-id {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .status-badge.submitted {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--info);
+        }
+
+        .status-badge.under-review {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        .status-badge.approved {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.rejected {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 50px;
+            width: 2px;
+            height: calc(100% + 25px);
+            background: #e0e0e0;
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .timeline-item.active .timeline-dot {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(107, 142, 35, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(107, 142, 35, 0); }
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-top: 5px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .timeline-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(52, 152, 219, 0.08);
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .info-box strong {
+            color: var(--primary-dark);
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Application Details */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger);
+            color: var(--danger);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            display: none;
+        }
+
+        .empty-state.show {
+            display: block;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Student Registration Form</h1>
-    <form action="/submit_registration" method="POST">
-        <label for="studentID">Student ID:</label><br>
-        <input type="text" id="studentID" name="studentID" required><br><br>
 
-        <label for="program">Select Program:</label><br>
-        <select id="program" name="program" required>
-            <option value="program1">Program 1</option>
-            <option value="program2">Program 2</option>
-            <option value="program3">Program 3</option>
-        </select><br><br>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <i class="fas fa-search"></i>
+            </div>
+            <h1>Track Application</h1>
+        </div>
+        <button class="header-btn" onclick="window.location.href='admission.html'">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </header>
 
-        <label for="level">Select Level:</label><br>
-        <select id="level" name="level" required>
-            <option value="undergraduate">Undergraduate</option>
-            <option value="graduate">Graduate</option>
-        </select><br><br>
+    <div class="container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <h2><i class="fas fa-magnifying-glass"></i> Find Your Application</h2>
+            <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">Enter your tracking code or application ID</p>
+            <div class="search-form">
+                <input type="text" id="searchInput" class="search-input" placeholder="e.g., APP-2025-0001 or ABC12345" />
+                <button class="search-btn" onclick="searchApplication()"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
 
-        <h2>Account Setup</h2>
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage"></div>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
+        <!-- Empty State -->
+        <div class="empty-state show" id="emptyState">
+            <div class="empty-state-icon">
+                <i class="fas fa-inbox"></i>
+            </div>
+            <p style="margin-bottom: 10px;">No application found yet</p>
+            <p style="font-size: 0.85rem;">Enter your tracking code or application ID above to check your application status</p>
+        </div>
 
-        <h2>Contact Information</h2>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
+        <!-- Status Card -->
+        <div class="status-card" id="statusCard">
+            <!-- Header -->
+            <div class="status-header">
+                <h3 id="applicantName">John Doe</h3>
+                <div class="tracking-id">Application ID: <strong id="appId">APP-2025-0001</strong></div>
+                <div class="status-badge submitted" id="statusBadge">Submitted</div>
+            </div>
 
-        <label for="phone">Phone Number:</label><br>
-        <input type="tel" id="phone" name="phone" required><br><br>
+            <!-- Application Details -->
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Program</div>
+                    <div class="detail-value" id="detailProgram">RN</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Entry Mode</div>
+                    <div class="detail-value" id="detailEntryMode">WASSCE</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Submitted Date</div>
+                    <div class="detail-value" id="detailDate">Jan 15, 2025</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value" id="detailStatus">Under Review</div>
+                </div>
+            </div>
 
-        <button type="submit">Submit</button>
-    </form>
-    <h2>Review Steps</h2>
-    <ol>
-        <li>Verify your Student ID.</li>
-        <li>Select your desired program and level.</li>
-        <li>Set up your account.</li>
-        <li>Provide contact information.</li>
-        <li>Review your submission before hitting submit.</li>
-    </ol>
+            <!-- Timeline -->
+            <div style="margin-top: 30px;">
+                <h3 style="color: var(--primary-dark); margin-bottom: 20px;">
+                    <i class="fas fa-list-check"></i> Application Progress
+                </h3>
+                <div class="timeline" id="timeline">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box" id="infoBox">
+                <p><strong>Status Update:</strong></p>
+                <p id="statusMessage">Your application is currently being reviewed. Please check back soon for updates.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // Sample application data (in real app, this would come from a backend)
+        const mockApplications = [
+            {
+                id: 'APP-2025-0001',
+                trackingCode: 'ABC12345',
+                name: 'Ama Mensah',
+                program: 'RN',
+                programName: 'Registered General Nursing',
+                entryMode: 'WASSCE',
+                submittedDate: new Date('2025-01-15'),
+                status: 'under_review',
+                statusText: 'Under Review',
+                progress: [
+                    { step: 'Application Submitted', date: '2025-01-15', completed: true, active: false },
+                    { step: 'Documents Verification', date: '2025-01-22', completed: true, active: false },
+                    { step: 'Academic Review', date: null, completed: false, active: true },
+                    { step: 'Interview', date: null, completed: false, active: false },
+                    { step: 'Final Decision', date: null, completed: false, active: false }
+                ],
+                message: 'Your documents have been verified. Academic review is in progress. You will be contacted for an interview soon.'
+            },
+            {
+                id: 'APP-2025-0002',
+                trackingCode: 'XYZ98765',
+                name: 'Kwame Boateng',
+                program: 'ML',
+                programName: 'Medical Laboratory Technology',
+                entryMode: 'GCE',
+                submittedDate: new Date('2025-01-10'),
+                status: 'approved',
+                statusText: 'Approved',
+                progress: [
+                    { step: 'Application Submitted', date: '2025-01-10', completed: true, active: false },
+                    { step: 'Documents Verification', date: '2025-01-18', completed: true, active: false },
+                    { step: 'Academic Review', date: '2025-01-25', completed: true, active: false },
+                    { step: 'Interview', date: '2025-02-01', completed: true, active: false },
+                    { step: 'Final Decision', date: '2025-02-08', completed: true, active: false }
+                ],
+                message: 'Congratulations! Your application has been approved. Please proceed to student registration to complete your enrollment.'
+            },
+            {
+                id: 'APP-2025-0003',
+                trackingCode: 'DEF45678',
+                name: 'Abigail Osei',
+                program: 'RM',
+                programName: 'Registered Midwifery',
+                entryMode: 'Diploma',
+                submittedDate: new Date('2025-01-20'),
+                status: 'submitted',
+                statusText: 'Submitted',
+                progress: [
+                    { step: 'Application Submitted', date: '2025-01-20', completed: true, active: false },
+                    { step: 'Documents Verification', date: null, completed: false, active: true },
+                    { step: 'Academic Review', date: null, completed: false, active: false },
+                    { step: 'Interview', date: null, completed: false, active: false },
+                    { step: 'Final Decision', date: null, completed: false, active: false }
+                ],
+                message: 'Your application has been received. We are currently verifying your documents. This process may take 5-7 working days.'
+            }
+        ];
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function formatDate(date) {
+            if (!date) return '';
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function searchApplication() {
+            const searchInput = document.getElementById('searchInput').value.trim().toUpperCase();
+            
+            if (!searchInput) {
+                showToast('Please enter a tracking code or application ID');
+                return;
+            }
+
+            const application = mockApplications.find(app => 
+                app.id === searchInput || app.trackingCode === searchInput
+            );
+
+            const errorMsg = document.getElementById('errorMessage');
+            const emptyState = document.getElementById('emptyState');
+            const statusCard = document.getElementById('statusCard');
+
+            if (!application) {
+                errorMsg.textContent = `❌ No application found for "${searchInput}". Please check and try again.`;
+                errorMsg.classList.add('show');
+                emptyState.classList.add('show');
+                statusCard.classList.remove('show');
+                return;
+            }
+
+            errorMsg.classList.remove('show');
+            emptyState.classList.remove('show');
+            statusCard.classList.add('show');
+
+            // Update card with application data
+            document.getElementById('applicantName').textContent = application.name;
+            document.getElementById('appId').textContent = application.id;
+            document.getElementById('detailProgram').textContent = application.programName;
+            document.getElementById('detailEntryMode').textContent = application.entryMode;
+            document.getElementById('detailDate').textContent = formatDate(application.submittedDate);
+            document.getElementById('detailStatus').textContent = application.statusText;
+            document.getElementById('statusMessage').textContent = application.message;
+
+            // Update status badge
+            const badge = document.getElementById('statusBadge');
+            badge.className = 'status-badge ' + application.status;
+            badge.textContent = application.statusText;
+
+            // Generate timeline
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = application.progress.map(step => `
+                <div class="timeline-item ${step.completed ? 'completed' : ''} ${step.active ? 'active' : ''}">
+                    <div class="timeline-dot">
+                        ${step.completed ? '<i class="fas fa-check"></i>' : (step.active ? '<i class="fas fa-clock"></i>' : '')}
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">${step.step}</div>
+                        <div class="timeline-date">${step.date ? formatDate(new Date(step.date)) : 'Pending'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Allow Enter key to search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchApplication();
+            }
+        });
+
+        // Check if there's a stored application to show
+        window.addEventListener('load', function() {
+            const lastApplication = localStorage.getItem('lastApplication');
+            if (lastApplication) {
+                const app = JSON.parse(lastApplication);
+                document.getElementById('searchInput').value = app.id;
+                searchApplication();
+            }
+        });
+    </script>
 </body>
 </html>
